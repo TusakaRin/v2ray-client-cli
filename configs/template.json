@@ -1,0 +1,88 @@
+{
+  "policy": {
+    "system": {
+    }
+  },
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": "proxy",
+      "port": 10800,
+      "listen": "0.0.0.0",
+      "protocol": "socks",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "ip": null,
+        "address": null,
+        "clients": null,
+        "decryption": null
+      },
+      "streamSettings": null
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 10801,
+      "protocol": "http",
+      "settings": {
+          "allowTransparent": true,
+          "timeout": 300
+      },
+      "sniffing": {
+      },
+      "tag": "http_IN"
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "",
+            "port": 0,
+            "users": [
+              {
+                "id": "",
+                "alterId": 1,
+                "security": "auto",
+                "encryption": null
+              }
+            ]
+          }
+        ],
+        "servers": null,
+        "response": null
+      },
+       "streamSettings": {
+        "network": "ws",
+        "security": null,
+        "tlsSettings": null,
+        "tcpSettings": null,
+        "kcpSettings": null,
+        "wsSettings": {
+          "connectionReuse": true,
+          "path": null,
+          "headers": null
+        },
+        "httpSettings": null,
+        "quicSettings": null
+      }
+    }
+  ],
+  "stats": {},
+  "dns": null,
+  "routing": {}
+}
