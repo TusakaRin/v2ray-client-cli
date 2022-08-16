@@ -10,7 +10,7 @@ def query_config(url):
         response = requests.request("GET", url, headers=headers, data=payload)
         # print(response.text)
         result = base64.b64decode(response.text).decode('utf-8')
-        subs = result.strip("\r\n").split("\r\n")
+        subs = result.strip("\n").split("\n")
         subconfigs = []
         for sub in subs:
             subconfig = json.loads(base64.b64decode(sub[8:]).decode('utf-8'))
@@ -55,9 +55,7 @@ if __name__ == "__main__":
     cwd = args[2].strip()
 
     flag, result = query_config(url)
-    print(flag)
-    if flag:
-        for res in result:
-            pass
-    print(res)
-    run_v2ray(res, core, {"cwd": cwd})
+    for i, j in enumerate(result):
+        print(i, j['ps'])
+    choice = int(input("input: "))
+    run_v2ray(result[choice], core, {"cwd": cwd})
